@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block headLinks %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/baseStyle.css' %}">
+    <title>{% block titlePage %} {% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo header-item">
+                <a href="/" class="link-logo">
+                    <h1>Blog</h1>
+                </a>
+            </div>
+            <div class="search header-item">
+                <input type="text" placeholder="поиск" class="search-field">
+            </div>
+            <div class="profile header-item">
+                <div class="reg-and-login" id="profile-btn">
+                    <a href="/login" class="logIn">Войти</a>
+                    <a href="/register" class="register">Регестрация</a>
+                </div>
+
+                <div class="gamburger" id="gamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% block body %}{% endblock %}
+
+    <script type="text/javascript" src="{% static 'script/script.js' %}"></script>
+</body>
+</html>

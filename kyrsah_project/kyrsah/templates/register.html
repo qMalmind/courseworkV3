@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titlePage %} Вход в аккаунт {% endblock %}
+
+{% block headLinks %}
+    <link rel="stylesheet" href="{% static 'css/logAndRegStyle.css' %}">
+{% endblock %}
+
+{% block body %}
+<main>
+        <h2>Регистрация аккаунта</h2>
+        <form method="post" class="register-form">
+            {% csrf_token %}
+            <label for="email">Укажите вашу почту</label>
+            <input type="email" name="email" placeholder="почта" id="email">
+
+            <label for="login">Придумайте уникальный логин</label>
+            <input type="text" name="login" placeholder="лоигн" id="login">
+
+            <label for="name">Ваше имя</label>
+            <input type="text" name="name" placeholder="имя" id="name">
+
+            <label for="pass">Придумает пароль (минимум 8 символов)</label>
+            <input type="password" placeholder="пароль" id="pass">
+
+            <input type="submit">
+        </form>
+</main>
+{% endblock %}

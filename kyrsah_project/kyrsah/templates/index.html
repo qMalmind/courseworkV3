@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titlePage %} 123{% endblock %}
+
+{% block headLinks %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block body %} 
+<main>
+    {% for i in articles %}
+        <a href="{% url 'post_detail' i.id %}" class="article">
+            <div class="preview" style="background-color: {{ i.color }}"></div>
+            <div class="text-info">
+                <div class="article-title">
+                    {{ i.title }}
+                </div>
+                <div class="article-author">
+                    {{ i.idUser.name }}
+                </div>
+            </div>
+        </a>
+
+    {% endfor %}
+</main>
+{% endblock %}  

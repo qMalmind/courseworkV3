@@ -1,0 +1,282 @@
+*{
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+header{
+    width: 100%;
+    height: 87px;
+    background-color: #FF2121;
+
+}
+
+.header-content{
+    position: relative;
+    width: 1530px;
+    height: 100%;
+
+    margin-left: calc((100% - 1530px) / 2);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-item{
+    min-width: calc(100% / 3);
+    display: flex;
+    align-items: center;
+
+    color: #fff;
+}
+
+.logo{
+    justify-content: start;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.search-field{
+    width: 610px;
+    height: 40px;
+    border-radius: 30px;
+
+    outline: none;
+    border: none;
+
+    box-sizing: border-box;
+    padding-left: 15px;
+
+    transition: .5s ease-out;
+}
+
+.profile{
+    justify-content: end;
+    column-gap: 29px;
+
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.register,
+.logIn{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.register{
+    border: 5px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 11px 22px 10px 22px ;
+
+    transition: .3s ease-out;
+}
+
+.register:hover{
+    background-color: #fff;
+    color: black;
+
+    transition: .3s ease-out;
+}
+
+.gamburger{
+    width: 40px;
+    height: 50px;
+
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.gamburger span{
+    position: relative;
+    
+    width: 100%;
+    height: 5px;
+
+    background-color: #fff;
+    border-radius: 3px;
+}
+
+.active-profile-mobile{
+    position: absolute;
+    top: 87px;
+    left: 100%;
+    transform: translate(-100%, 0);
+    z-index: 2;
+
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding: 20px;
+
+    background-color: #C4C4C4;
+    border-radius: 0 0 0 30px;
+
+    box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.25);
+}
+
+.active-mobile-login,
+.active-mobile-reg{
+    border: none;
+    padding: 0;
+    font-size: 20px;
+}
+
+@media (max-width: 1530px) {
+    .header-content{
+        margin: 0;
+        box-sizing: border-box;
+        padding: 0 15px 0 15px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1070px) {
+
+    .reg-and-login{
+        display: none;
+    }
+
+    .gamburger{
+        display: flex;
+    }
+
+    .header-content{
+        column-gap: 15px;
+    }
+
+    .header-item:nth-child(1){
+        min-width: 25%;
+    }
+
+    .header-item:nth-child(3){
+        min-width: 10%;
+    }
+
+    .header-item:nth-child(2){
+        min-width: 50%;
+    }
+}
+
+@media (max-width: 450px) {
+    .logo{
+        display: none;
+    }
+}
+
+
+/* === Стили для main === */
+main{
+    width: 1530px;
+    margin-top: 84px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.name-article,
+.content-article{
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+}
+
+.name-article h2,
+.content-article h2{
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.name-article input,
+.content-article textarea{
+    width: 520px;
+    height: 44px;
+
+    box-sizing: border-box;
+    padding: 10px 18px 10px 18px;
+
+    background-color: #F2F2F2;
+    border: 2px solid #D5D5D5;
+    border-radius: 30px;
+
+    font-size: 20px;
+
+    outline: none;
+}
+
+.content-article{
+    margin-top: 12px;
+}
+
+.content-article textarea{
+    width: 1140px;
+    height: 342px;
+    padding: 8px 18px 8px 18px;
+}
+
+.send-article{
+    margin-top: 32px;
+}
+
+.send-article input{
+    width: 229px;
+    height: 50px;
+
+    outline: none;
+    background: none;
+    border: 5px solid #FF2121;
+    border-radius: 30px;
+
+    box-sizing: border-box;
+    padding: 10px;
+
+    color: #FF2121;
+    font-weight: 600;
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: .3s ease-out;
+}
+
+.send-article input:hover{
+    color: #fff;
+    background: #FF2121;
+
+    transition: .3s ease-out;
+}
+
+@media (max-width: 1530px) {
+    main{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 15px 0 15px;
+    }
+}
+
+@media (max-width: 1140px) {
+    .content-article textarea{
+        width: 100%;
+        
+    }
+}
+
+@media (max-width: 520px) {
+    .name-article input{
+        width: 100%;
+        
+    }
+}

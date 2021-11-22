@@ -1,0 +1,52 @@
+/* === Стили для main === */
+main{
+    width: 1530px;
+    margin-top: 84px;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+    
+    margin-top: 50px;
+}
+
+.register-form label{
+    font-size: 20px;
+}
+
+.register-form input{
+    width: 350px;
+    height: 44px;
+
+    box-sizing: border-box;
+    padding: 10px 18px 10px 18px;
+
+    background-color: #F2F2F2;
+    border: 2px solid #D5D5D5;
+    border-radius: 30px;
+
+    font-size: 20px;
+
+    outline: none;
+}
+
+.register-form input[type="submit"]{
+    width: 200px;
+}
+
+
+
+@media (max-width: 1530px) {
+    main{
+        width: 100%;
+
+        justify-content: space-around;
+
+        box-sizing: border-box;
+        padding: 0 15px 0 15px;
+        
+    }
+}
+

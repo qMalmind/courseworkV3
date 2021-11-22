@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titlePage %} Вход в аккаунт {% endblock %}
+
+{% block headLinks %}
+    <link rel="stylesheet" href="{% static 'css/logAndRegStyle.css' %}">
+{% endblock %}
+
+{% block body %} 
+<main>
+    <h2>Вход в аккаунт</h2> 
+    <form method="post" class="register-form">
+        <label for="email">Логин/почта</label>
+        <input type="email" name="email" placeholder="логин/почта" id="email">
+        
+
+        <label for="pass">Пароль</label>
+        <input type="password" placeholder="пароль" id="pass">
+        
+        <input type="submit" value="войти">
+    </form> 
+</main>
+{% endblock %}
