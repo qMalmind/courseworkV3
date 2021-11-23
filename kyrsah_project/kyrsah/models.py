@@ -1,15 +1,37 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class Role(models.Model):
     roleName = models.CharField(max_length=32, unique=True)
 
 
-class User(models.Model):
-    name = models.CharField(max_length=32, null=False)
+class CustomUserManager(BaseUserManager):
+    def create_user(self, login, password):
+        user = self.model(login=login, password=password)
+        user.set_password(password)
+        user.is_staff = False
+        user.is_superuser = False
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, login, password):
+        user = self.model(login=login, password=password)
+        user.set_password(password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+    def get_by_natural_key(self, login):
+        return self.get(login=login)
+
+
+class User(AbstractBaseUser, PermissionsMixin):
     login = models.CharField(max_length=64, unique=True, null=False)
     password = models.CharField(max_length=512, null=False)
+
+    name = models.CharField(max_length=32, null=False)
     email = models.CharField(max_length=128, null=False)
     city = models.CharField(max_length=32, null=True)
     haveBan = models.BooleanField(default=False)
@@ -17,6 +39,15 @@ class User(models.Model):
     dateRegistration = models.TimeField(default=timezone.now())
 
     idRole = models.ForeignKey(Role, on_delete=models.CASCADE)
+
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'login'
+    objects = CustomUserManager()
+
+    def __str__(self):
+        return self.login
 
 
 class Article(models.Model):

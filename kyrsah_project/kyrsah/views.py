@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.shortcuts import get_object_or_404
+from django.contrib.auth import logout, login
 
 from .models import *
 from .functions import *
@@ -25,6 +25,10 @@ class LogIn(View):
         context = {}
         return render(request, 'login.html', context=context)
 
+    def post(self, request):
+        context = {}
+        return render(request, 'index.html', context=context)
+
 
 class Register(View):
     def get(self, request):
@@ -40,6 +44,8 @@ class Register(View):
         print(login)
         print(name)
         print(password)
+
+        User.objects.create(name=name, email=email, login=login, password=password)
 
         context = {}
         return render(request, 'index.html', context=context)
