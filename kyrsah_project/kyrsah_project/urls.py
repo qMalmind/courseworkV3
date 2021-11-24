@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/', LogIn.as_view()),
     path('register/', Register.as_view()),
     path('post<int:id>', BlogContent.as_view(), name='post_detail'),
+    path('logout/', my_logout),
 ]

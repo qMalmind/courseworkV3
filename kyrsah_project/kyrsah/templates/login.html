@@ -11,12 +11,13 @@
 <main>
     <h2>Вход в аккаунт</h2> 
     <form method="post" class="register-form">
+        {% csrf_token %}
         <label for="email">Логин/почта</label>
-        <input type="email" name="email" placeholder="логин/почта" id="email">
+        <input type="text" name="email" placeholder="логин/почта" id="email">
         
 
         <label for="pass">Пароль</label>
-        <input type="password" placeholder="пароль" id="pass">
+        <input type="password" placeholder="пароль" id="pass" name="password">
         
         <input type="submit" value="войти">
     </form> 

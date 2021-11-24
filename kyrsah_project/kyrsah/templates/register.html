@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titlePage %} Вход в аккаунт {% endblock %}
+{% block titlePage %} Register {% endblock %}
 
 {% block headLinks %}
     <link rel="stylesheet" href="{% static 'css/logAndRegStyle.css' %}">
@@ -21,10 +21,16 @@
             <label for="name">Ваше имя</label>
             <input type="text" name="name" placeholder="имя" id="name">
 
-            <label for="pass">Придумает пароль (минимум 8 символов)</label>
-            <input type="password" placeholder="пароль" id="pass">
+            <label for="pass">Придумает пароль (минимум 6 символов)</label>
+            <input type="text" placeholder="пароль" id="pass" name="password">
 
             <input type="submit">
         </form>
+
+        <div>
+            {% for i in err %}
+                <span style="color: red">{{ i }}</span> <br>
+            {% endfor %}
+        </div>
 </main>
 {% endblock %}

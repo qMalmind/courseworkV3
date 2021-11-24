@@ -2,9 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-class Role(models.Model):
-    roleName = models.CharField(max_length=32, unique=True)
-
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, login, password):
@@ -37,8 +34,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     haveBan = models.BooleanField(default=False)
     color = models.CharField(default="#ccc", max_length=16)
     dateRegistration = models.TimeField(default=timezone.now())
-
-    idRole = models.ForeignKey(Role, on_delete=models.CASCADE)
 
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

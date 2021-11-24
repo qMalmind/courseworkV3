@@ -63,6 +63,7 @@ header{
 }
 
 .profile{
+
     justify-content: end;
     column-gap: 29px;
 
@@ -72,7 +73,8 @@ header{
 }
 
 .register,
-.logIn{
+.logIn,
+.create-article{
     color: #fff;
     text-decoration: none;
     cursor: pointer;
@@ -87,11 +89,41 @@ header{
     transition: .3s ease-out;
 }
 
-.register:hover{
+.create-article{
+    border: 3px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 5px;
+
+    transition: .3s ease-out;
+}
+
+.register:hover,
+.create-article:hover{
     background-color: #fff;
     color: black;
 
     transition: .3s ease-out;
+}
+
+
+
+.avatar{
+    width: 40px;
+    height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: #CACACA;
+
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+
+    text-decoration: none;
 }
 
 .gamburger{
