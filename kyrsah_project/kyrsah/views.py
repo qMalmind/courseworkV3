@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .functions import *
@@ -26,7 +27,7 @@ class MainPage(View):
         }
         return render(request, 'index.html', context=context)
 
-
+@login_required
 def my_logout(request):
     logout(request)
     return HttpResponseRedirect('/')
@@ -110,6 +111,45 @@ class Register(View):
             return HttpResponseRedirect('/')
 
 
+class CreateArticle(View):
+    def get(self, request):
+        try:
+            current_user = avaUser(request.user.name)
+        except:
+            current_user = None
+        context = {
+            'current_user': current_user,
+            'current_user_ava': current_user
+        }
+
+        return render(request, 'createEditArticle.html', context=context)
+
+    def post(self, request):
+
+        title_article = request.POST.get('title_article')
+        content_article = request.POST.get('content')
+        color_article = request.POST.get('color_article')
+
+        print(title_article)
+        print(content_article)
+
+        c = Article.objects.create(title=title_article, content=content_article, idUser=request.user, color=color_article)
+
+        return HttpResponseRedirect('/')
+
+
+
+class EditArticle(View):
+    def get(self, request, id):
+        article = Article.objects.get(id=id)
+
+        context = {
+            'article': article
+        }
+
+        return render(request, 'editArticle.html', context=context)
+
+
 class BlogContent(View):
     def get(self, request, id):
         article = Article.objects.get(id=id)
@@ -128,7 +168,7 @@ class BlogContent(View):
             'article': article,
             'userAva': avaUser(article.idUser.name),
             'avaUserCommnets': userAvaComment,
-            'current_user_ava': current_user,
+            'current_user': current_user,
             'comments': comments,
             'lencomment': len(comments),
             'len': zip(comments, userAvaComment)

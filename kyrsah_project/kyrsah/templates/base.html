@@ -24,7 +24,7 @@
                 <div class="reg-and-login" id="profile-btn">
                     {% if request.user.is_authenticated %}
                         <a href="#" class="avatar">{{current_user}}</a>
-                        <a href="#" class="create-article">Создать статью</a>
+                        <a href="/create-article/" class="create-article">Создать статью</a>
                         <a href="/logout/" class="logIn">Выйти</a>
                     {% else %}
                         <a href="/login" class="logIn">Войти</a>

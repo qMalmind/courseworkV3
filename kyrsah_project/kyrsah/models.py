@@ -50,8 +50,8 @@ class Article(models.Model):
     content = models.CharField(null=False, max_length=16384)
     haveBan = models.BooleanField(default=False)
     color = models.CharField(default="#ccc", max_length=16)
-    countLikes = models.IntegerField()
-    countDislikes = models.IntegerField()
+    countLikes = models.IntegerField(default=0)
+    countDislikes = models.IntegerField(default=0)
     dateCreate = models.TimeField(default=timezone.now())
 
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)

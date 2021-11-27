@@ -130,3 +130,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'kyrsah.User'
+
+LOGIN_REDIRECT_URL='/register/'
+LOGIN_URL = '/register/'
