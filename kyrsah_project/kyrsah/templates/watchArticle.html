@@ -28,8 +28,17 @@
                 </form>
             </div>
 
-            <a href="#" class="edit-article">Редактировать</a>
-            <a href="#" class="edit-article">Удалить</a>
+            {% if full_current_user == article.idUser %}
+                <a href="{% url 'edit_article' article.id  %}" class="edit-article">Редактировать</a>
+            {% endif %}
+
+            {% if full_current_user == article.idUser or full_current_user.is_superuser %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit" class="edit-article delete-article" value="Удалить">
+            </form>
+
+            {% endif %}
 
         </div>
 

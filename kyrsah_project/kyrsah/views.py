@@ -57,7 +57,7 @@ class LogIn(View):
             try:
                 usr = User.objects.get(login=login_or_email)
             except:
-                user = User.objects.get(email=login_or_email)
+                usr = User.objects.get(email=login_or_email)
 
             login(request, usr)
             print(request.user)
@@ -130,24 +130,45 @@ class CreateArticle(View):
         content_article = request.POST.get('content')
         color_article = request.POST.get('color_article')
 
-        print(title_article)
-        print(content_article)
-
         c = Article.objects.create(title=title_article, content=content_article, idUser=request.user, color=color_article)
 
         return HttpResponseRedirect('/')
 
 
-
 class EditArticle(View):
     def get(self, request, id):
+
         article = Article.objects.get(id=id)
 
+        if request.user != article.idUser:
+            return HttpResponseRedirect('/')
+
+        try:
+            current_user = avaUser(request.user.name)
+        except:
+            current_user = None
+
         context = {
-            'article': article
+            'article': article,
+            'current_user': current_user
         }
 
         return render(request, 'editArticle.html', context=context)
+
+    def post(self, request, id):
+
+        article = Article.objects.get(id=id)
+        title_article = request.POST.get('title_article')
+        content_article = request.POST.get('content')
+        color_article = request.POST.get('color_article')
+
+        article.title = title_article
+        article.content = content_article
+        article.color = color_article
+
+        article.save()
+
+        return HttpResponseRedirect('/')
 
 
 class BlogContent(View):
@@ -161,16 +182,25 @@ class BlogContent(View):
 
         try:
             current_user = avaUser(request.user.name)
+            full_current_user = request.user
         except:
             current_user = None
+            full_current_user = None
 
+        print(full_current_user)
+        print(article.idUser)
         context = {
             'article': article,
             'userAva': avaUser(article.idUser.name),
             'avaUserCommnets': userAvaComment,
             'current_user': current_user,
+            'full_current_user': full_current_user,
             'comments': comments,
             'lencomment': len(comments),
             'len': zip(comments, userAvaComment)
         }
         return render(request, 'watchArticle.html', context=context)
+
+    def post(self, request, id):
+        article = Article.objects.get(id=id).delete()
+        return HttpResponseRedirect('/')

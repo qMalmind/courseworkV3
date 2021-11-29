@@ -48,6 +48,14 @@ main{
     transition: .3s ease-out;
 }
 
+.delete-article{
+    background: none;
+    border: none;
+    outline: none;
+
+    cursor: pointer;
+}
+
 .edit-article{
     width: 160px;
     height: 32px;

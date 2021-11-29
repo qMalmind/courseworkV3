@@ -11,5 +11,5 @@ urlpatterns = [
     path('post<int:id>', BlogContent.as_view(), name='post_detail'),
     path('logout/', my_logout),
     path('create-article/', login_required(CreateArticle.as_view())),
-    path('edit-arctile<int:id>', login_required(EditArticle.as_view())),
+    path('edit-arctile<int:id>', login_required(EditArticle.as_view()), name="edit_article"),
 ]

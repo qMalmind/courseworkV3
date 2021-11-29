@@ -41,8 +41,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'login'
     objects = CustomUserManager()
 
-    def __str__(self):
-        return self.login
+    def __repr__(self):
+        return User()
 
 
 class Article(models.Model):

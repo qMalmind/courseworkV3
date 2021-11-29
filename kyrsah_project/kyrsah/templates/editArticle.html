@@ -29,13 +29,17 @@
                         cols="30"
                         rows="10"
                         placeholder="Текст статьи"
-                        value= "{{ article.content }}"
-                ></textarea>
+
+                > {{ article.content }} </textarea>
             </div>
 
             <div class="name-article">
                 <h4>Выберите цвет статьи</h4>
-                <input type="color" name="color_article">
+                <input
+                        type="color"
+                        name="color_article"
+                        value="{{article.color}}"
+                >
             </div>
 
             <div class="send-article">
