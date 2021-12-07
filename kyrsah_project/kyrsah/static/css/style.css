@@ -1,7 +1,38 @@
 /* === Стили для main === */
+
+.sort{
+    width: 1530px;
+    display: flex;    
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 20px;
+
+    margin-top: 50px;
+}
+
+.sort button{
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    background: none;
+    border: none;
+    border-radius: 10px;
+
+    padding: 5px;
+
+    cursor: pointer;
+
+    transition: all .4s ease;
+}
+
+.sort button:hover{
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
 main{
     width: 1530px;
-    margin-top: 84px;
+    margin-top: 45px;
 
     display: flex;
     gap: 30px;
@@ -63,6 +94,9 @@ main{
 }
 
 @media (max-width: 1530px) {
+    .sort{
+        width: 100%;
+    }
     main{
         width: 100%;
 

@@ -42,6 +42,9 @@ class MainPage(View):
         if anti_trends:
             articles = Article.objects.filter(haveBan=False).order_by('countLikes')
 
+        news_articles = self.request.GET.get('order-date')
+        if news_articles:
+            articles = Article.objects.filter(haveBan=False).order_by('dateCreate')
 
         context = {
             'articles': articles,
