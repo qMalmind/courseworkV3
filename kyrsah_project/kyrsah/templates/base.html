@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %} 
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,15 +17,15 @@
                     <h1>Blog</h1>
                 </a>
             </div>
-            <div class="search header-item">
-                <input type="text" placeholder="поиск" class="search-field">
-            </div>
+            <form method="GET" class="search header-item" id="search-form">
+                <input type="text" name="q" placeholder="поиск" class="search-field">
+            </form>
             <div class="profile header-item">
                 <div class="reg-and-login" id="profile-btn">
                     {% if request.user.is_authenticated %}
-                        <a href="#" class="avatar">{{current_user}}</a>
+                        <a href="{% url 'profile' full_current_user.id %}" class="avatar">{{current_user}}</a>
                         <a href="/create-article/" class="create-article">Создать статью</a>
-                        <a href="/logout/" class="logIn">Выйти</a>
+<!--                        <a href="/logout/" class="logIn">Выйти</a>-->
                     {% else %}
                         <a href="/login" class="logIn">Войти</a>
                         <a href="/register" class="register">Регестрация</a>

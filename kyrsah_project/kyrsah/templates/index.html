@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block titlePage %} 123{% endblock %}
+{% block titlePage %} BLOG {% endblock %}
 
 {% block headLinks %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -9,6 +9,18 @@
 
 {% block body %} 
 <main>
+    {% if len_articles == 0 %}
+        <h1>Статей нет</h1>
+    {% endif %}
+
+    <form method="get">
+        <input type="submit" name="order-likes" value="Тренды">
+    </form>
+
+    <form method="get">
+        <input type="submit" name="order-dislikes" value="Анти тренды">
+    </form>
+    
     {% for i in articles %}
         <a href="{% url 'post_detail' i.id %}" class="article">
             <div class="preview" style="background-color: {{ i.color }}"></div>

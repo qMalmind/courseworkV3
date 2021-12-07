@@ -9,3 +9,9 @@ gamburger.addEventListener("click", ()=>{
     loginBtn.classList.toggle("active-mobile-reg");
 
 });
+
+document.getElementById('search-form').addEventListener('keydown', function(e){
+  if (e.keyCode == 13) {
+    this.submit();
+  }
+})

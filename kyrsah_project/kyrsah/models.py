@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -33,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=32, null=True)
     haveBan = models.BooleanField(default=False)
     color = models.CharField(default="#ccc", max_length=16)
-    dateRegistration = models.TimeField(default=timezone.now())
+    dateRegistration = models.DateField(default=datetime.date.today())
 
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -52,24 +54,18 @@ class Article(models.Model):
     color = models.CharField(default="#ccc", max_length=16)
     countLikes = models.IntegerField(default=0)
     countDislikes = models.IntegerField(default=0)
-    dateCreate = models.TimeField(default=timezone.now())
+    dateCreate = models.DateTimeField(default=datetime.date.today())
 
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-class Tag(models.Model):
-    tagName = models.CharField(max_length=32)
-
-
-class TagAndArticle(models.Model):
-    idTag = models.ForeignKey(Tag, on_delete=models.CASCADE)
-    idArticle = models.ForeignKey(Article, on_delete=models.CASCADE)
 
 
 class LikeOrDislike(models.Model):
     like = models.BooleanField()
     idArticle = models.ForeignKey(Article, on_delete=models.CASCADE)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __repr__(self):
+        return {'idUser': self.idUser, 'idArticle': self.idArticle, 'like': self.like}
 
 
 class Comment(models.Model):
