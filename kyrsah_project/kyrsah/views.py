@@ -14,7 +14,7 @@ class MainPage(View):
 
     def get(self, request):
 
-        articles = Article.objects.filter(haveBan=False).order_by('dateCreate')
+        articles = Article.objects.filter(haveBan=False).order_by('-dateCreate')
         users = User.objects.all()
 
 
@@ -29,22 +29,25 @@ class MainPage(View):
         if query:
             articles = Article.objects.filter(
                 Q(title__icontains=query)
-            )
-            print(articles)
+            ).filter(haveBan=False)
+
 
         len_articles = len(articles)
 
         trends = self.request.GET.get('order-likes')
         if trends:
-            articles = Article.objects.filter(haveBan=False).order_by('countLikes')
+            articles = Article.objects.filter(haveBan=False).order_by('-countLikes')
+            print('trends')
 
         anti_trends = self.request.GET.get('order-dislikes')
         if anti_trends:
-            articles = Article.objects.filter(haveBan=False).order_by('countLikes')
+            articles = Article.objects.filter(haveBan=False).order_by('-countDislikes')
+            print('anti-trends')
 
         news_articles = self.request.GET.get('order-date')
         if news_articles:
-            articles = Article.objects.filter(haveBan=False).order_by('dateCreate')
+            articles = Article.objects.filter(haveBan=False).order_by('-dateCreate')
+            print('news')
 
         context = {
             'articles': articles,
@@ -167,6 +170,50 @@ class Profile(View):
         return render(request, 'profile.html', context=context)
 
 
+class Edit_profile(View):
+
+     def get(self, request, id):
+         user = User.objects.get(id=id)
+
+         try:
+             current_user = avaUser(request.user.name)
+             full_current_user = request.user
+         except:
+             current_user = None
+             full_current_user = None
+
+         if user.id != full_current_user.id:
+             return HttpResponseRedirect("/")
+
+
+
+         context = {
+             'current_user': current_user,
+             'full_current_user': full_current_user,
+             'user': user,
+         }
+
+         return render(request, 'changeProfile.html', context=context)
+
+     def post(self, request, id):
+
+         user = User.objects.get(id=id)
+
+         login = request.POST.get('login')
+         name = request.POST.get('name')
+         mail = request.POST.get('email')
+         city = request.POST.get('city')
+
+         user.login = login
+         user.name = name
+         user.email = mail
+         user.city = city
+
+         user.save()
+
+         return HttpResponseRedirect("/user/{}".format(user.id))
+
+
 class Ban_user(View):
     def get(self, request, id):
         if not(request.user.is_staff):
@@ -194,6 +241,9 @@ class CreateArticle(View):
             'full_current_user': full_current_user
 
         }
+
+        if full_current_user.haveBan:
+            return HttpResponseRedirect("/")
 
         return render(request, 'createEditArticle.html', context=context)
 
@@ -267,6 +317,15 @@ class BlogContent(View):
             current_user = None
             full_current_user = None
 
+        check_like = LikeOrDislike.objects.filter(idUser=request.user.id, idArticle=id, like=True)
+        check_dislike = LikeOrDislike.objects.filter(idUser=request.user.id, idArticle=id, like=False)
+        like = False
+        dislike = False
+        if check_like:
+            like = True
+        if check_dislike:
+            dislike = True
+
         context = {
             'article': article,
             'userAva': avaUser(article.idUser.name),
@@ -276,7 +335,9 @@ class BlogContent(View):
             'comments': comments,
             'lencomment': len(comments),
             'len': zip(comments, userAvaComment),
-            'del_article': del_article
+            'del_article': del_article,
+            'like': like,
+            'dislike': dislike
         }
         return render(request, 'watchArticle.html', context=context)
 

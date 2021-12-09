@@ -4,6 +4,9 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
+from django.db.models.functions import Lower
+from django.db.models import CharField
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, login, password):
@@ -47,14 +50,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         return User()
 
 
+class To_lower_field(models.CharField):
+    def __init__(self, *args, **kwargs):
+        super(To_lower_field, self).__init__(*args, **kwargs)
+
+    def get_prep_value(self, value):
+        return str(value).lower()
+
+
 class Article(models.Model):
-    title = models.CharField(max_length=128, null=False)
+    title = To_lower_field(max_length=128, null=False)
     content = models.CharField(null=False, max_length=16384)
     haveBan = models.BooleanField(default=False)
     color = models.CharField(default="#ccc", max_length=16)
     countLikes = models.IntegerField(default=0)
     countDislikes = models.IntegerField(default=0)
-    dateCreate = models.DateTimeField(default=datetime.date.today())
+    dateCreate = models.DateTimeField(default=datetime.datetime.now())
 
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
 

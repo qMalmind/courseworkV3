@@ -20,5 +20,6 @@ urlpatterns = [
     path('delete-comment<int:id>', login_required(Delete_comment.as_view()), name="delete_comment"),
     path('add_like<int:id>', login_required(Add_like.as_view()), name="add_like"),
     path('add_dislike<int:id>', login_required(Add_dislike.as_view()), name="add_dislike"),
-    path('user/<int:id>', Profile.as_view(), name='profile')
+    path('user/<int:id>', Profile.as_view(), name='profile'),
+    path('edit-profile/<int:id>', Edit_profile.as_view(), name='edit_profile'),
 ]

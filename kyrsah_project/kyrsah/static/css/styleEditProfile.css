@@ -1,0 +1,24 @@
+.profie-info{
+    
+    margin-top: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.profie-info input{
+    width: 290px;
+    height: 35px;
+
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: rgba(204, 204, 204, 0.151);
+
+    box-sizing: border-box;
+    padding: 0 15px;
+
+    outline: none;
+}
