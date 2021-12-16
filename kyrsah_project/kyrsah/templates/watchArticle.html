@@ -49,7 +49,7 @@
 
         <div class="col-2">
             <div class="author">
-                <a href="{% url 'profile' article.idUser.id %}" class="avatar">{{ userAva }}</a>
+                <a href="{% url 'profile' article.idUser.id %}" class="avatar" style="background: {{ article.idUser.color }}">{{ userAva }}</a>
                 <a href="{% url 'profile' article.idUser.id %}" class="name">{{ article.idUser.name }}</a>
             </div>
 

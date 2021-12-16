@@ -116,10 +116,12 @@ class Register(View):
         login = request.POST.get('login')
         name = request.POST.get('name')
         password = request.POST.get('password')
+        color = request.POST.get('color')
         print(email)
         print(login)
         print(name)
         print(password)
+        print(color)
 
         context = {
 
@@ -139,7 +141,7 @@ class Register(View):
             context['err'] = errors
             return render(request, 'register.html', context=context)
         else:
-            User.objects.create(name=name, email=email, login=login, password=password)
+            User.objects.create(name=name, email=email, login=login, color=color)
             print("create user")
             return HttpResponseRedirect('/')
 
@@ -203,15 +205,17 @@ class Edit_profile(View):
          name = request.POST.get('name')
          mail = request.POST.get('email')
          city = request.POST.get('city')
+         color = request.POST.get('color')
 
          user.login = login
          user.name = name
          user.email = mail
          user.city = city
+         user.color = color
 
          user.save()
 
-         return HttpResponseRedirect("/user/{}".format(user.id))
+         return HttpResponseRedirect(f"/user/{user.id}")
 
 
 class Ban_user(View):

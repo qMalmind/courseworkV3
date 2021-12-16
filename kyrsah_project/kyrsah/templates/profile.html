@@ -10,7 +10,7 @@
 {% block body %}
 <main>
         <div class="main-profile">
-            <div class="avatar">{{ user_avatar }}</div>
+            <div class="avatar" style="background: {{ user.color }}">{{ user_avatar }}</div>
             <div class="profile-info">
                  <div class="line-profile">
                     <div class="name">{{ user.name }}</div>

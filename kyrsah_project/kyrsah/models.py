@@ -9,12 +9,13 @@ from django.db.models import CharField
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, login, password):
+    def create_user(self, login, password, name, email, color):
         user = self.model(login=login, password=password)
         user.set_password(password)
         user.is_staff = False
         user.is_superuser = False
         user.save(using=self._db)
+
         return user
 
     def create_superuser(self, login, password):
@@ -27,6 +28,7 @@ class CustomUserManager(BaseUserManager):
 
     def get_by_natural_key(self, login):
         return self.get(login=login)
+
 
 
 class User(AbstractBaseUser, PermissionsMixin):
