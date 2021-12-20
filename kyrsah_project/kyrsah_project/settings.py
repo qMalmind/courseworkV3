@@ -133,3 +133,9 @@ AUTH_USER_MODEL = 'kyrsah.User'
 
 LOGIN_REDIRECT_URL='/register/'
 LOGIN_URL = '/register/'
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]

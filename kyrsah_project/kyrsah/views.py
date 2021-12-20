@@ -3,11 +3,11 @@ from django.views import View
 from django.contrib.auth import logout, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password, check_password
 from django.db.models import Q
 
 from .models import *
 from .functions import *
-from .forms import *
 
 
 class MainPage(View):
@@ -86,14 +86,16 @@ class LogIn(View):
         print(login_or_email)
         print(password)
 
-        if (User.objects.filter(email=login_or_email) or User.objects.filter(login=login_or_email)) and User.objects.filter(password=password):
+        if (User.objects.filter(email=login_or_email) or User.objects.filter(login=login_or_email)):
             try:
                 usr = User.objects.get(login=login_or_email)
             except:
                 usr = User.objects.get(email=login_or_email)
 
-            login(request, usr)
-            print(request.user)
+            if usr.check_password(password):
+
+                login(request, usr)
+                print(request.user)
             return HttpResponseRedirect('/')
         else:
             print("not login")
@@ -141,7 +143,7 @@ class Register(View):
             context['err'] = errors
             return render(request, 'register.html', context=context)
         else:
-            User.objects.create(name=name, email=email, login=login, color=color)
+            User.objects.create(name=name, email=email, login=login, color=color, password=make_password(password))
             print("create user")
             return HttpResponseRedirect('/')
 
