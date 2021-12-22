@@ -232,7 +232,6 @@ class Ban_user(View):
         return HttpResponseRedirect('/')
 
 #     ======== Всё что связно со статьями
-
 class CreateArticle(View):
     def get(self, request):
         try:
@@ -244,7 +243,8 @@ class CreateArticle(View):
         context = {
             'current_user': current_user,
             'current_user_ava': current_user,
-            'full_current_user': full_current_user
+            'full_current_user': full_current_user,
+            'title': "Создать статью",
 
         }
 
