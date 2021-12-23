@@ -40,9 +40,15 @@
             {% endif %}
 
             {% if full_current_user.is_staff %}
-                <div method="post" name="del-article">
-                    <a href="{% url 'ban_article' article.id %}" class="edit-article" style="color: #FF2121">В БАН</a>
-                </div>
+                {% if article.haveBan %}
+                    <div method="post" name="del-article">
+                        <a href="{% url 'recovery_article' article.id %}" class="edit-article" style="color: #FF2121">Разбанить</a>
+                    </div>
+                {% else %}
+                    <div method="post" name="del-article">
+                        <a href="{% url 'ban_article' article.id %}" class="edit-article" style="color: #FF2121">В БАН</a>
+                    </div>
+                {% endif %}
             {% endif %}
 
         </div>

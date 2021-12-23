@@ -35,9 +35,16 @@ main{
     margin-top: 45px;
 
     display: flex;
+    flex-direction: column;
+    gap: 45px;
+    flex-wrap: wrap;
+}
+
+.all-articles{
+    display: flex;
     gap: 30px;
     flex-wrap: wrap;
-} 
+}
 
 .article{
     width: 360px;
@@ -96,6 +103,7 @@ main{
 @media (max-width: 1530px) {
     .sort{
         width: 100%;
+        flex-wrap: wrap;
     }
     main{
         width: 100%;
@@ -105,5 +113,15 @@ main{
         box-sizing: border-box;
         padding: 0 15px 0 15px;
         
+    }
+}
+
+@media (max-width: 360px){
+    .article{
+        width: 100%;
+    }
+
+    .sort{
+        justify-content: center;
     }
 }

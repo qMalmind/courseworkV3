@@ -24,8 +24,12 @@
                 <div class="reg-and-login" id="profile-btn">
                     {% if request.user.is_authenticated %}
                         <a href="{% url 'profile' full_current_user.id %}" class="avatar" style="background: {{ full_current_user.color }}">{{current_user}}</a>
-                        <a href="/create-article/" class="create-article">Создать статью</a>
-<!--                        <a href="/logout/" class="logIn">Выйти</a>-->
+                        {% if full_current_user.haveBan %}
+                            <span>Вы заблокированы</span>
+                        {% else %}
+                            <a href="/create-article/" class="create-article">Создать статью</a>
+                        {% endif %}
+
                     {% else %}
                         <a href="/login" class="logIn">Войти</a>
                         <a href="/register" class="register">Регистрация</a>

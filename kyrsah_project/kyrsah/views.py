@@ -25,36 +25,46 @@ class MainPage(View):
             current_user = None
             full_current_user = None
 
+        articles_order = "Новинки"
+
         query = self.request.GET.get('q')
         if query:
             articles = Article.objects.filter(
                 Q(title__icontains=query)
             ).filter(haveBan=False)
 
-
-        len_articles = len(articles)
-
         trends = self.request.GET.get('order-likes')
         if trends:
             articles = Article.objects.filter(haveBan=False).order_by('-countLikes')
+            articles_order = "Тренды"
             print('trends')
 
         anti_trends = self.request.GET.get('order-dislikes')
         if anti_trends:
             articles = Article.objects.filter(haveBan=False).order_by('-countDislikes')
+            articles_order = "Анти тренды"
             print('anti-trends')
 
         news_articles = self.request.GET.get('order-date')
         if news_articles:
             articles = Article.objects.filter(haveBan=False).order_by('-dateCreate')
+            articles_order = "Новинки"
             print('news')
+
+        ban_article = self.request.GET.get('ban-articles')
+        if ban_article and full_current_user.is_staff:
+            articles = Article.objects.filter(haveBan=True).order_by('-dateCreate')
+            articles_order = "Заблокированные статьи"
+
+        len_articles = len(articles)
 
         context = {
             'articles': articles,
             'len_articles': len_articles,
             'users': users,
             'current_user': current_user,
-            'full_current_user': full_current_user
+            'full_current_user': full_current_user,
+            'articles_order': articles_order
         }
 
         return render(request, 'index.html', context=context)
@@ -203,17 +213,10 @@ class Edit_profile(View):
 
          user = User.objects.get(id=id)
 
-         login = request.POST.get('login')
-         name = request.POST.get('name')
-         mail = request.POST.get('email')
-         city = request.POST.get('city')
-         color = request.POST.get('color')
-
-         user.login = login
-         user.name = name
-         user.email = mail
-         user.city = city
-         user.color = color
+         user.name = request.POST.get('name')
+         user.email = request.POST.get('email')
+         user.city = request.POST.get('city')
+         user.color = request.POST.get('color')
 
          user.save()
 
@@ -382,6 +385,17 @@ class Ban_article(View):
 
         article = Article.objects.get(id=id)
         article.haveBan = True
+        article.save()
+
+        return HttpResponseRedirect('/')
+
+class Recovery_article(View):
+    def get(self, request, id):
+        if not(request.user.is_staff):
+            return HttpResponseRedirect('/')
+
+        article = Article.objects.get(id=id)
+        article.haveBan = False
         article.save()
 
         return HttpResponseRedirect('/')
