@@ -389,6 +389,7 @@ class Ban_article(View):
 
         return HttpResponseRedirect('/')
 
+
 class Recovery_article(View):
     def get(self, request, id):
         if not(request.user.is_staff):
