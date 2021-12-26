@@ -135,11 +135,12 @@ class Register(View):
         print(password)
         print(color)
 
-        context = {
-
-        }
-
+        context = {}
         errors = []
+
+        if email.find(' ') != -1 or login.find(' ') != -1 or name.find(' ') != -1 or password.find(' ') != -1:
+            print("have space in fields")
+            errors.append("В указанных данных есть пробелы")
 
         if User.objects.filter(login=login):
             print("bad login")
